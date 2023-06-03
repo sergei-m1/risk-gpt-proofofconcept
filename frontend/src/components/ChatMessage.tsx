@@ -1,22 +1,18 @@
 import { Box, Text } from "@chakra-ui/react";
 import React from "react";
+import { Message } from "./ChatWindow";
 
-interface Props {
-  type: "sent" | "received";
-  text: string;
-}
-
-const ChatMessage = ({ type, text }: Props) => {
-  const bgColor = type === "sent" ? "green.200" : "blue.200";
-  const marginRightValue = type === "sent" ? 0 : 20;
-  const marginLeftValue = type === "sent" ? 20 : 0;
+const ChatMessage = ({ type, text }: Message) => {
+  const bgColor: string = type === "sent" ? "green.200" : "blue.200";
+  const marginRightValue: number = type === "sent" ? 0 : 32;
+  const marginLeftValue: number = type === "sent" ? 32 : 0;
 
   return (
     <Box
       backgroundColor={bgColor}
       marginRight={marginRightValue}
       marginLeft={marginLeftValue}
-      borderRadius={4}
+      borderRadius={15}
       marginBottom={4}
       padding={2}
     >

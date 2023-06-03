@@ -1,14 +1,29 @@
 import { Card, CardBody, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import ChatMessage from "./ChatMessage";
+import ChatInput from "./ChatInput";
+
+//defining the interface for messages
+export interface Message {
+  type: "sent" | "received";
+  text: string;
+}
 
 const ChatWindow = () => {
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  const handleSendMessage = (text: string) => {
+    const newMessage: Message = { type: "sent", text };
+    setMessages([...messages, newMessage]);
+  };
+
   return (
-    <Card borderRadius="md" boxShadow="md">
+    <Card borderRadius={10} boxShadow="md">
       <CardBody>
-        <ChatMessage text="Test" type="sent"></ChatMessage>
-        <ChatMessage text="Test2" type="received"></ChatMessage>
-        <ChatMessage text="Test3" type="sent"></ChatMessage>
+        {messages.map((message, index) => (
+          <ChatMessage key={index} type={message.type} text={message.text} />
+        ))}
+        <ChatInput onSendMessage={handleSendMessage} />
       </CardBody>
     </Card>
   );
