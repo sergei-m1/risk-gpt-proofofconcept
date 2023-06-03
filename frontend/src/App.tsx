@@ -1,12 +1,40 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import "./App.css";
+import {
+  Box,
+  Card,
+  CardBody,
+  Grid,
+  GridItem,
+  Show,
+  Text,
+} from "@chakra-ui/react";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
-    <div className="App">
-      <h1> test</h1>
-    </div>
+    <Grid
+      templateAreas={{
+        base: `"nav" "main"`,
+        lg: `"nav nav" "aside main"`,
+      }}
+    >
+      <GridItem area="nav">
+        <NavBar />
+      </GridItem>
+      <Show above="lg">
+        <GridItem area="aside" bg="yellow">
+          Aside
+        </GridItem>
+      </Show>
+      <GridItem area="main" bg="red">
+        <Card>
+          <CardBody>
+            <Text>Text 1</Text>
+            <Text>Text 2</Text>
+            <Text>Text 3</Text>
+          </CardBody>
+        </Card>
+      </GridItem>
+    </Grid>
   );
 }
 
