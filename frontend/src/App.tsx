@@ -17,7 +17,15 @@ function App() {
         base: `"nav" "main"`,
         lg: `"nav nav" "aside main"`,
       }}
-      gridTemplateColumns={"250px 1fr"}
+      templateRows={{
+        base: "auto 1fr",
+        lg: "auto 1fr",
+      }}
+      gridTemplateColumns={{
+        base: "1fr",
+        lg: "250px 1fr",
+      }}
+      minHeight="100vh"
     >
       <GridItem area="nav">
         <NavBar />
@@ -27,7 +35,7 @@ function App() {
           Aside
         </GridItem>
       </Show>
-      <GridItem area="main" bg="red">
+      <GridItem area="main" bg="red" overflowY="auto" padding={4}>
         <ChatWindow />
       </GridItem>
     </Grid>

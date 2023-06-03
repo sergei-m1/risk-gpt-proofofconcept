@@ -1,5 +1,12 @@
-import { Card, CardBody, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import {
+  Box,
+  Card,
+  CardBody,
+  Stack,
+  StackDivider,
+  Text,
+} from "@chakra-ui/react";
+import React, { useEffect, useRef, useState } from "react";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 
@@ -18,12 +25,16 @@ const ChatWindow = () => {
   };
 
   return (
-    <Card borderRadius={10} boxShadow="md">
-      <CardBody>
-        {messages.map((message, index) => (
-          <ChatMessage key={index} type={message.type} text={message.text} />
-        ))}
-        <ChatInput onSendMessage={handleSendMessage} />
+    <Card borderRadius={10} boxShadow="md" height="100%">
+      <CardBody display="flex" flexDirection="column">
+        <Box flex="1" overflowY="auto" padding={4}>
+          {messages.map((message, index) => (
+            <ChatMessage key={index} type={message.type} text={message.text} />
+          ))}
+        </Box>
+        <Box marginY={4}>
+          <ChatInput onSendMessage={handleSendMessage} />
+        </Box>
       </CardBody>
     </Card>
   );
