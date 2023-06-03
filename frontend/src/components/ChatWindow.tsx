@@ -1,11 +1,4 @@
-import {
-  Box,
-  Card,
-  CardBody,
-  Stack,
-  StackDivider,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Card, CardBody, Divider } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
@@ -32,7 +25,13 @@ const ChatWindow = () => {
             <ChatMessage key={index} type={message.type} text={message.text} />
           ))}
         </Box>
-        <Box marginY={4}>
+        <Divider
+          marginBottom={1}
+          borderColor="gray.400"
+          borderWidth={1}
+          opacity={0.8}
+        />
+        <Box marginY={2}>
           <ChatInput onSendMessage={handleSendMessage} />
         </Box>
       </CardBody>
