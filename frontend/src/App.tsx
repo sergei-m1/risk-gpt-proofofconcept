@@ -8,6 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
+import ChatWindow from "./components/ChatWindow";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         base: `"nav" "main"`,
         lg: `"nav nav" "aside main"`,
       }}
+      gridTemplateColumns={"250px 1fr"}
     >
       <GridItem area="nav">
         <NavBar />
@@ -26,13 +28,7 @@ function App() {
         </GridItem>
       </Show>
       <GridItem area="main" bg="red">
-        <Card>
-          <CardBody>
-            <Text>Text 1</Text>
-            <Text>Text 2</Text>
-            <Text>Text 3</Text>
-          </CardBody>
-        </Card>
+        <ChatWindow />
       </GridItem>
     </Grid>
   );
