@@ -7,6 +7,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 
@@ -19,9 +20,21 @@ const ChatWindow = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesRef = useRef<HTMLDivElement | null>(null);
 
-  const handleSendMessage = (text: string) => {
+  const handleSendMessage = async (text: string) => {
     const newMessage: Message = { type: "sent", text };
     setMessages([...messages, newMessage]);
+
+    try {
+      const response = await axios.get("http://127.0.0.1:5000/api");
+      const responseData: Message = response.data;
+      const receivedMessage: Message = {
+        type: responseData.type,
+        text: responseData.text,
+      };
+      setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
