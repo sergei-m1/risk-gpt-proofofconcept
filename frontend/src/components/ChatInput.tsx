@@ -6,6 +6,7 @@ import {
   Button,
   FormControl,
   Text,
+  Flex,
 } from "@chakra-ui/react";
 import { BsSend } from "react-icons/bs";
 
@@ -30,22 +31,25 @@ const ChatInput = ({ onSendMessage }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSendMessage}>
-      <FormControl>
-        <InputGroup>
-          <Input
-            placeholder="Type your message..."
-            pr="4.5rem"
-            ref={currentMessageRef}
-          />
-          <InputRightElement width="4.5rem">
-            <Button h="1.6rem" type="submit" size="sm" colorScheme="telegram">
-              <BsSend />
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-      </FormControl>
-    </form>
+    <Flex justify="center" flex="1">
+      <form onSubmit={handleSendMessage} style={{ width: "90%" }}>
+        <FormControl>
+          <InputGroup>
+            <Input
+              placeholder="Type your message..."
+              pr="4.5rem"
+              borderRadius={16}
+              ref={currentMessageRef}
+            />
+            <InputRightElement width="4.5rem">
+              <Button h="1.6rem" type="submit" size="sm" colorScheme="telegram">
+                <BsSend />
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </FormControl>
+      </form>
+    </Flex>
   );
 };
 
