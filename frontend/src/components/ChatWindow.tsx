@@ -31,7 +31,13 @@ const ChatWindow = () => {
   }, [messages]);
 
   return (
-    <Card height="100%" width="100%" overflowX="hidden" borderRadius={20}>
+    <Card
+      boxShadow="lg"
+      height="100%"
+      width="100%"
+      overflowX="hidden"
+      rounded="2xl"
+    >
       <CardBody
         flex="1"
         overflowY="auto"

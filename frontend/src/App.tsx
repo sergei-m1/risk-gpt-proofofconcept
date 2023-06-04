@@ -36,7 +36,7 @@ function App() {
           Aside
         </GridItem>
       </Show>
-      <GridItem area="main" overflowY="auto" bg="red" padding={6}>
+      <GridItem area="main" overflowY="auto" bg="gray.50" padding={6}>
         <Box height="100%" width="100%" display="flex" flexDirection="column">
           <Box flex="1" overflowY="auto">
             <ChatWindow />
