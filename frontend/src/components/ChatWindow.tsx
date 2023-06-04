@@ -53,7 +53,7 @@ const ChatWindow = () => {
         borderWidth={1}
         opacity={0.8}
       />
-      <CardFooter bg="gray.200" p={2}>
+      <CardFooter p={2}>
         <ChatInput onSendMessage={handleSendMessage} />
       </CardFooter>
     </Card>
