@@ -22,17 +22,22 @@ const ChatWindow = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesRef = useRef<HTMLDivElement | null>(null);
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
   const handleSendMessage = async (text: string) => {
+    setIsLoading(true);
+
     const newMessage: Message = { type: "sent", text };
     setMessages([...messages, newMessage]);
 
     const controller = new AbortController();
+    const payload = JSON.stringify(newMessage);
 
-    const data = { text: text };
-    axios
-      .post<Message[]>("http://127.0.0.1:5000/api", JSON.stringify(data), {
-        headers: { "Content-Type": "application/json" },
-      })
+    console.log(payload);
+
+    apiClient
+      .post<Message>("", payload, { signal: controller.signal })
       .then((res) => {
         const responseData: Message = res.data;
         const receivedMessage: Message = {
@@ -41,24 +46,18 @@ const ChatWindow = () => {
         };
         console.log(receivedMessage);
         setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+
+        setIsLoading(false);
       })
       .catch((err) => {
-        console.error(err);
+        if (err instanceof CanceledError) return;
+        setError(err.message);
+        setIsLoading(false);
       });
-
-    // try {
-    //   const response = await fetchMessages(text);
-    //   const responseData: Message = response.data;
-    //   const receivedMessage: Message = {
-    //     type: responseData.type,
-    //     text: responseData.text,
-    //   };
-    //   setMessages((prevMessages) => [...prevMessages, receivedMessage]);
-    // } catch (error) {
-    //   console.error("Error fetching data:", error);
-    // }
+    return () => controller.abort();
   };
 
+  // Scrolls the chat to the most recent message
   useEffect(() => {
     if (messagesRef.current) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
@@ -102,3 +101,35 @@ const ChatWindow = () => {
 };
 
 export default ChatWindow;
+
+// try {
+//   const response = await fetchMessages(text);
+//   const responseData: Message = response.data;
+//   const receivedMessage: Message = {
+//     type: responseData.type,
+//     text: responseData.text,
+//   };
+//   setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+// } catch (error) {
+//   console.error("Error fetching data:", error);
+// }
+
+// const controller = new AbortController();
+
+// const data = { text: text };
+// axios
+//   .post<Message[]>("http://127.0.0.1:5000/api", JSON.stringify(data), {
+//     headers: { "Content-Type": "application/json" },
+//   })
+//   .then((res) => {
+//     const responseData: Message = res.data;
+//     const receivedMessage: Message = {
+//       type: responseData.type,
+//       text: responseData.text,
+//     };
+//     console.log(receivedMessage);
+//     setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });
