@@ -5,18 +5,19 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route("/api", methods=["GET"])
-def get_resource():
-    # Handle GET request for the resource
-    return jsonify({"type": "received", "text": "GET request received"})
+@app.route("/api", methods=["GET", "POST"])
+def handle_api():
+    if request.method == "GET":
+        # Handle GET request for the resource
+        return jsonify({"type": "received", "text": "GET request received"})
+    elif request.method == "POST":
+        # Handle POST request to create a new resource
+        data = request.get_json()
+        print(data)
+        text_to_return = "I have processed the following POST request: " + data["text"]
 
-
-@app.route("/api", methods=["POST"])
-def create_resource():
-    # Handle POST request to create a new resource
-    data = request.get_json()
-    # Process the data and create the resource
-    return jsonify({"message": "Resource created", "data": data}), 201
+        # Process the data and create the resource
+        return jsonify({"type": "received", "text": text_to_return}), 201
 
 
 if __name__ == "__main__":

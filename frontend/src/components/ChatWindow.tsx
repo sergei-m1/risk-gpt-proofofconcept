@@ -7,9 +7,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import axios, { CanceledError } from "axios";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
+import useMessages from "../hooks/useMessages";
+import apiClient from "../services/api-client";
 
 export interface Message {
   type: "sent" | "received";
@@ -24,17 +26,37 @@ const ChatWindow = () => {
     const newMessage: Message = { type: "sent", text };
     setMessages([...messages, newMessage]);
 
-    try {
-      const response = await axios.get("http://127.0.0.1:5000/api");
-      const responseData: Message = response.data;
-      const receivedMessage: Message = {
-        type: responseData.type,
-        text: responseData.text,
-      };
-      setMessages((prevMessages) => [...prevMessages, receivedMessage]);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+    const controller = new AbortController();
+
+    const data = { text: text };
+    axios
+      .post<Message[]>("http://127.0.0.1:5000/api", JSON.stringify(data), {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        const responseData: Message = res.data;
+        const receivedMessage: Message = {
+          type: responseData.type,
+          text: responseData.text,
+        };
+        console.log(receivedMessage);
+        setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    // try {
+    //   const response = await fetchMessages(text);
+    //   const responseData: Message = response.data;
+    //   const receivedMessage: Message = {
+    //     type: responseData.type,
+    //     text: responseData.text,
+    //   };
+    //   setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+    // } catch (error) {
+    //   console.error("Error fetching data:", error);
+    // }
   };
 
   useEffect(() => {
