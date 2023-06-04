@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route("/api", methods=["GET"])
 def get_resource():
     # Handle GET request for the resource
-    return jsonify({"message": "GET request received"})
+    return jsonify({"type": "received", "text": "GET request received"})
 
 
 @app.route("/api", methods=["POST"])
