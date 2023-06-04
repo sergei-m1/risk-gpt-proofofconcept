@@ -26,7 +26,7 @@ function App() {
         lg: "250px 1fr",
       }}
       minHeight="100vh"
-      height="100%"
+      maxHeight="100vh"
     >
       <GridItem area="nav">
         <NavBar />
@@ -37,8 +37,16 @@ function App() {
         </GridItem>
       </Show>
       <GridItem area="main" overflowY="auto" bg="red" padding={4}>
-        <Box height="800px" width="600px" borderRadius="md" p={4}>
-          <ChatWindow />
+        <Box
+          height="100%"
+          width="100%"
+          display="flex"
+          flexDirection="column"
+          overflow="hidden"
+        >
+          <Box flex="1" overflowY="auto">
+            <ChatWindow />
+          </Box>
         </Box>
       </GridItem>
     </Grid>
