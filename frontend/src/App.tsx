@@ -26,17 +26,20 @@ function App() {
         lg: "250px 1fr",
       }}
       minHeight="100vh"
+      height="100%"
     >
       <GridItem area="nav">
         <NavBar />
       </GridItem>
       <Show above="lg">
-        <GridItem area="aside" bg="yellow">
+        <GridItem area="aside" bg="yellow.200">
           Aside
         </GridItem>
       </Show>
-      <GridItem area="main" bg="red" overflowY="auto" padding={4}>
-        <ChatWindow />
+      <GridItem area="main" overflowY="auto" bg="red" padding={4}>
+        <Box height="800px" width="600px" borderRadius="md" p={4}>
+          <ChatWindow />
+        </Box>
       </GridItem>
     </Grid>
   );

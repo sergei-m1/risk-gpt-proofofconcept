@@ -13,7 +13,7 @@ const ChatMessage = ({ type, text }: Message) => {
       marginRight={marginRightValue}
       marginLeft={marginLeftValue}
       borderRadius={15}
-      marginBottom={4}
+      marginY={4}
       padding={2}
     >
       <Text>{text}</Text>
