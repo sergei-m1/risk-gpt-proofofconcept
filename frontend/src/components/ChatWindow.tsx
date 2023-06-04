@@ -31,7 +31,7 @@ const ChatWindow = () => {
   }, [messages]);
 
   return (
-    <Card height="100%" width="100%">
+    <Card height="100%" width="100%" overflowX="hidden" borderRadius={20}>
       <CardBody
         flex="1"
         overflowY="auto"
@@ -53,7 +53,7 @@ const ChatWindow = () => {
         borderWidth={1}
         opacity={0.8}
       />
-      <CardFooter p={2}>
+      <CardFooter mb={2} p={2}>
         <ChatInput onSendMessage={handleSendMessage} />
       </CardFooter>
     </Card>
