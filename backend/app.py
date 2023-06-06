@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import time
 
 app = Flask(__name__)
 CORS(app)
@@ -12,6 +13,9 @@ def handle_api():
         return jsonify({"type": "received", "text": "GET request received"})
     elif request.method == "POST":
         # Handle POST request to create a new resource
+        print("sleeping...")
+        time.sleep(5)
+        print("woke up")
         data = request.get_json()
         print(data)
         text_to_return = "I have processed the following POST request: " + data["text"]

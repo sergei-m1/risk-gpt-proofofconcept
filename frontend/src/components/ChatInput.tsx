@@ -5,16 +5,17 @@ import {
   InputRightElement,
   Button,
   FormControl,
-  Text,
   Flex,
+  Spinner,
 } from "@chakra-ui/react";
 import { BsSend } from "react-icons/bs";
 
 interface Props {
   onSendMessage: (text: string) => void;
+  isLoading: boolean;
 }
 
-const ChatInput = ({ onSendMessage }: Props) => {
+const ChatInput = ({ onSendMessage, isLoading }: Props) => {
   const currentMessageRef = useRef<HTMLInputElement>(null);
 
   const handleSendMessage = (event: FormEvent<HTMLFormElement>) => {
@@ -42,8 +43,23 @@ const ChatInput = ({ onSendMessage }: Props) => {
               ref={currentMessageRef}
             />
             <InputRightElement width="4.5rem">
-              <Button h="1.6rem" type="submit" size="sm" colorScheme="telegram">
-                <BsSend />
+              <Button
+                h="1.8rem"
+                w="2.5rem"
+                type="submit"
+                size="sm"
+                colorScheme="telegram"
+              >
+                {isLoading ? (
+                  <Spinner
+                    size="sm"
+                    speed="0.7s"
+                    emptyColor="gray.400"
+                    color="white"
+                  />
+                ) : (
+                  <BsSend />
+                )}
               </Button>
             </InputRightElement>
           </InputGroup>

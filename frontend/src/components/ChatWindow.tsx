@@ -52,7 +52,7 @@ const ChatWindow = () => {
         opacity={0.8}
       />
       <CardFooter mb={2} p={2}>
-        <ChatInput onSendMessage={handleSendMessage} />
+        <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
       </CardFooter>
     </Card>
   );
