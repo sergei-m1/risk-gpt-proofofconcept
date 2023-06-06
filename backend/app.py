@@ -14,7 +14,7 @@ def handle_api():
     elif request.method == "POST":
         # Handle POST request to create a new resource
         print("sleeping...")
-        time.sleep(5)
+        time.sleep(0.5)
         print("woke up")
         data = request.get_json()
         print(data)

@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef } from "react";
+import React, { FormEvent, useEffect, useRef } from "react";
 import {
   Input,
   InputGroup,
@@ -18,8 +18,20 @@ interface Props {
 const ChatInput = ({ onSendMessage, isLoading }: Props) => {
   const currentMessageRef = useRef<HTMLInputElement>(null);
 
+  // make sure that the cursor stay within the input form after isLoading is set back to false
+  useEffect(() => {
+    if (currentMessageRef.current && !isLoading) {
+      // Focus the input when form is enabled. Focus puts the cursor inside of the element
+      currentMessageRef.current.focus();
+    }
+  }, [isLoading]);
+
   const handleSendMessage = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (isLoading) {
+      return; // If isLoading is true, do not send the message
+    }
+
     // assigning the current non-null value of ref
     const message = currentMessageRef.current?.value;
 
@@ -41,6 +53,7 @@ const ChatInput = ({ onSendMessage, isLoading }: Props) => {
               pr="4.5rem"
               borderRadius={16}
               ref={currentMessageRef}
+              disabled={isLoading}
             />
             <InputRightElement width="4.5rem">
               <Button
