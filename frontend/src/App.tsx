@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import ChatWindow from "./components/ChatWindow";
+import SideBar from "./components/SideBar";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
       }}
       gridTemplateColumns={{
         base: "1fr",
-        lg: "250px 1fr",
+        lg: "1fr 1fr",
       }}
       minHeight="100vh"
       maxHeight="100vh"
@@ -32,8 +33,8 @@ function App() {
         <NavBar />
       </GridItem>
       <Show above="lg">
-        <GridItem area="aside" bg="yellow.200">
-          Aside
+        <GridItem area="aside" bg="gray.200">
+          <SideBar />
         </GridItem>
       </Show>
       <GridItem area="main" overflowY="auto" bg="gray.50" padding={6}>
