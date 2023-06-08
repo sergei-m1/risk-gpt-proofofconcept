@@ -66,10 +66,7 @@ const SideBar = ({ closed, onToggleSidebar }: Props) => {
         </VStack>
         {!closed && (
           <Box>
-            <SideBarDescription
-              active={activeSection === activeDescriptionKey}
-              text={activeDescriptionValue.text}
-            />
+            <SideBarDescription text={activeDescriptionValue.text} />
           </Box>
         )}
       </HStack>
