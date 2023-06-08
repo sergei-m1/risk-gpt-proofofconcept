@@ -10,8 +10,18 @@ import {
 import NavBar from "./components/NavBar";
 import ChatWindow from "./components/ChatWindow";
 import SideBar from "./components/SideBar";
+import { useState } from "react";
+import { HiChevronDoubleLeft } from "react-icons/hi";
 
 function App() {
+  const [sidebarClosed, setSidebarClosed] = useState(false);
+
+  const columnWidth = sidebarClosed ? "0.2fr 1fr" : "0.7fr 1fr";
+
+  const handleToggleSidebar = () => {
+    setSidebarClosed(!sidebarClosed);
+  };
+
   return (
     <Grid
       templateAreas={{
@@ -24,7 +34,7 @@ function App() {
       }}
       gridTemplateColumns={{
         base: "1fr",
-        lg: "1fr 1fr",
+        lg: columnWidth,
       }}
       minHeight="100vh"
       maxHeight="100vh"
@@ -34,10 +44,19 @@ function App() {
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" bg="gray.200">
-          <SideBar />
+          <SideBar
+            closed={sidebarClosed}
+            onToggleSidebar={handleToggleSidebar}
+          />
         </GridItem>
       </Show>
-      <GridItem area="main" overflowY="auto" bg="gray.50" padding={6}>
+      <GridItem
+        area="main"
+        overflowY="auto"
+        bg="gray.50"
+        padding={6}
+        width={sidebarClosed ? "100%" : "auto"}
+      >
         <Box height="100%" width="100%" display="flex" flexDirection="column">
           <Box flex="1" overflowY="auto">
             <ChatWindow />
