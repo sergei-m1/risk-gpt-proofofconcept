@@ -1,5 +1,5 @@
 import { Box, VStack, Text, Collapse, HStack } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideBarSection from "./SideBarSection";
 import SideBarDescription from "./SideBarDescription";
 import { HiChevronDoubleLeft } from "react-icons/hi";
@@ -15,6 +15,9 @@ const SideBar = ({ closed, onToggleSidebar }: Props) => {
 
   const handleSectionClick = (section: string) => {
     setActiveSection(section);
+    if (closed) {
+      onToggleSidebar();
+    }
   };
 
   return (
@@ -58,8 +61,8 @@ const SideBar = ({ closed, onToggleSidebar }: Props) => {
       </HStack>
       <Box
         position="absolute"
-        bottom={0}
-        left={0}
+        bottom={4}
+        left={4}
         padding={2}
         onClick={onToggleSidebar}
         cursor="pointer"
