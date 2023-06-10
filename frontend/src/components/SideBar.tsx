@@ -10,7 +10,6 @@ interface Props {
   onToggleSidebar: () => void;
 }
 
-// color="gray.800"
 const SideBar = ({ closed, onToggleSidebar }: Props) => {
   const [activeSection, setActiveSection] = useState("about");
 
@@ -45,7 +44,9 @@ const SideBar = ({ closed, onToggleSidebar }: Props) => {
         </VStack>
         {!closed && (
           <Box>
-            <SideBarDescription text={activeDescriptionValue.text} />
+            <SideBarDescription>
+              {activeDescriptionValue.text}
+            </SideBarDescription>
           </Box>
         )}
       </HStack>

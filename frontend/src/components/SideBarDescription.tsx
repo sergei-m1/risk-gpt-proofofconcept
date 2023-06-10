@@ -1,14 +1,14 @@
-import { Collapse, Text } from "@chakra-ui/react";
-import React from "react";
+import { Box } from "@chakra-ui/react";
+import React, { ReactNode } from "react";
 
 interface Props {
-  text: string;
+  children: ReactNode;
 }
 
-const SideBarDescription = ({ text }: Props) => (
-  <Text paddingY={2} paddingX={6}>
-    {text}
-  </Text>
+const SideBarDescription = ({ children }: Props) => (
+  <Box paddingY={2} paddingX={6}>
+    {children}
+  </Box>
 );
 
 export default SideBarDescription;
