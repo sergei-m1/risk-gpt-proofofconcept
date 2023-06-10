@@ -4,8 +4,8 @@ import { Message } from "./ChatWindow";
 
 const ChatMessage = ({ type, text }: Message) => {
   const isSentMessage = type === "sent";
-  const bgColor = isSentMessage ? "blue.100" : "blue.500";
-  const fontColor = isSentMessage ? "black" : "black";
+  const bgColor = isSentMessage ? "gray.600" : "gray.200";
+  const fontColor = isSentMessage ? "white" : "black";
   const alignment = isSentMessage ? "flex-end" : "flex-start";
 
   const messageStyle: React.CSSProperties = {
