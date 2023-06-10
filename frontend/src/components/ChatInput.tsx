@@ -7,6 +7,7 @@ import {
   FormControl,
   Flex,
   Spinner,
+  Textarea,
 } from "@chakra-ui/react";
 import { BsSend } from "react-icons/bs";
 
@@ -16,8 +17,7 @@ interface Props {
 }
 
 const ChatInput = ({ onSendMessage, isLoading }: Props) => {
-  const currentMessageRef = useRef<HTMLInputElement>(null);
-
+  const currentMessageRef = useRef<HTMLTextAreaElement>(null);
   // make sure that the cursor stay within the input form after isLoading is set back to false
   useEffect(() => {
     if (currentMessageRef.current && !isLoading) {
@@ -40,6 +40,27 @@ const ChatInput = ({ onSendMessage, isLoading }: Props) => {
     if (message && message.trim() !== "") {
       onSendMessage(message);
       currentMessageRef.current!.value = "";
+      currentMessageRef.current!.rows = 1; // Reset the number of rows displayed in the input box back to 1
+    }
+  };
+
+  // This function defines what happens when the user presses the enter and shift keys together
+  // For just enter send the message
+  // For enter and shift add a new line to the Box up until 5 lines are displayed
+  const handleInputKeyDown = (
+    event: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      //  prevents the default behavior of the Enter key, which is to add a new line.
+      event.preventDefault();
+      const formElement = event.currentTarget.closest("form"); // take the closest ancestor <form> of <Textarea>
+      if (formElement instanceof HTMLFormElement) {
+        handleSendMessage(new Event("submit", { cancelable: true }) as any);
+      }
+    } else if (event.key === "Enter" && event.shiftKey) {
+      if (currentMessageRef.current!.rows < 5) {
+        currentMessageRef.current!.rows += 1;
+      }
     }
   };
 
@@ -48,12 +69,17 @@ const ChatInput = ({ onSendMessage, isLoading }: Props) => {
       <form onSubmit={handleSendMessage} style={{ width: "90%" }}>
         <FormControl>
           <InputGroup>
-            <Input
+            <Textarea
               placeholder="Type your message..."
               pr="4.5rem"
               borderRadius={16}
               ref={currentMessageRef}
               disabled={isLoading}
+              resize="none"
+              rows={1}
+              onKeyDown={handleInputKeyDown}
+              // making scroll bar invisible
+              css={{ "&::-webkit-scrollbar": { width: "0.4em" } }}
             />
             <InputRightElement width="4.5rem">
               <Button
@@ -83,3 +109,8 @@ const ChatInput = ({ onSendMessage, isLoading }: Props) => {
 };
 
 export default ChatInput;
+
+// This fixes it.
+
+// I also observed the following behaviour:
+// - When I press shift+enter in the textarea component a new line is added.
