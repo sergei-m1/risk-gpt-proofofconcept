@@ -3,7 +3,12 @@ import { Message } from "../components/ChatWindow";
 import { sendMessage } from "../services/api-services";
 
 const useChatWindow = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      type: "received",
+      text: "Hi, I am a Risk GPT Prototype model. I am here to answer your questions on topics of Finance and Risk. For more information please click on the 'About' section on your left side. You can close the side bar by pressing the chevron in the bottom left of the side bar. What can I help you with today?",
+    },
+  ]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const messagesRef = useRef<HTMLDivElement | null>(null);

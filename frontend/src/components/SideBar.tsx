@@ -30,7 +30,7 @@ const SideBar = ({ closed, onToggleSidebar }: Props) => {
     filteredDescriptions[0];
 
   return (
-    <Box paddingLeft={3} paddingY={10}>
+    <Box paddingLeft={5} paddingY={10}>
       <HStack>
         <VStack align="left" spacing={4}>
           {Object.entries(sideBarData).map(([key, value]) => (
