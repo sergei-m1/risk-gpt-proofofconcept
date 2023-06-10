@@ -88,6 +88,7 @@ const ChatInput = ({ onSendMessage, isLoading }: Props) => {
                 type="submit"
                 size="sm"
                 colorScheme="telegram"
+                // bgColor={"gray.600"}
               >
                 {isLoading ? (
                   <Spinner
@@ -97,7 +98,7 @@ const ChatInput = ({ onSendMessage, isLoading }: Props) => {
                     color="white"
                   />
                 ) : (
-                  <BsSend />
+                  <BsSend color="white" fontSize="1.2rem" />
                 )}
               </Button>
             </InputRightElement>
@@ -109,8 +110,3 @@ const ChatInput = ({ onSendMessage, isLoading }: Props) => {
 };
 
 export default ChatInput;
-
-// This fixes it.
-
-// I also observed the following behaviour:
-// - When I press shift+enter in the textarea component a new line is added.
