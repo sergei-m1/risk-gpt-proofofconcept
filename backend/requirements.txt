@@ -1,0 +1,14 @@
+#API
+flask
+#LLM
+langchain
+chromadb
+llama-cpp-python
+pdfminer.six==20221105
+InstructorEmbedding
+sentence-transformers
+faiss-cpu
+huggingface_hub
+transformers
+
+#pip install -U --pre torch torchvision -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html
