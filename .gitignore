@@ -14,6 +14,6 @@ backend/__pycache__
 *.ipynb
 
 # Ignoring some of the python files
-*/mps_test.py
-*/retrieve_local.py
-*/openai_key.py
+**/mps_test.py
+**/retrieve_local.py
+**/openai_key.py
