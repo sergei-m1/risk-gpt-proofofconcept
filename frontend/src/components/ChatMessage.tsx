@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Link, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import React from "react";
 import { Message } from "./ChatWindow";
 
@@ -21,28 +21,22 @@ const ChatMessage = ({ type, text, sources, provideSources }: Message) => {
     wordWrap: "break-word" as "break-word", // Break long words onto the next line
   };
 
-  if (provideSources && sources && sources.length > 0) {
-    console.log("Sources should be rendered");
-    console.log(provideSources);
-    console.log(sources);
-    console.log(sources.length > 0);
-  } else {
-    console.log("Sources should not be rendered");
-    console.log(provideSources);
-    console.log(sources);
-    console.log(sources.length > 0);
-  }
+  // fontSize="sm" fontStyle="italic" color="gray.500"
 
   const renderMessageContent = () => {
     if (provideSources && sources && sources.length > 0) {
       return (
         <>
-          <Text>These are the used sources: </Text>
-          {sources.map((source, index) => (
-            <Text key={index} fontSize="sm" fontStyle="italic" color="gray.500">
-              {source}
-            </Text>
-          ))}
+          <Text>To answer your question I used the following sources:</Text>
+          <UnorderedList>
+            {sources.map((source, index) => (
+              <ListItem key={index}>
+                <Link href={source} isExternal>
+                  {source}
+                </Link>
+              </ListItem>
+            ))}
+          </UnorderedList>
         </>
       );
     } else {
