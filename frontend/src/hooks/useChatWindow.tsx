@@ -6,7 +6,7 @@ const useChatWindow = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       type: "received",
-      text: "Hi, I am a Risk GPT Prototype model. I am here to answer your questions on topics of Finance and Risk. For more information please click on the 'About' section on your left side. You can close the side bar by pressing the chevron in the bottom left of the side bar. What can I help you with today?",
+      text: "Hi, I am a Risk GPT Prototype model. I am here to answer your questions on topics of Finance and Risk. For more information about me or how to use me please click on the 'About' or 'How to' section on your left side. You can open or close the side bar by pressing the chevron in the bottom left of the side bar. What can I help you with today?",
       sources: [],
       provideSources: false,
     },

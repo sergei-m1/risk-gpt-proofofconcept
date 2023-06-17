@@ -14,9 +14,9 @@ import { useState } from "react";
 import { HiChevronDoubleLeft } from "react-icons/hi";
 
 function App() {
-  const [sidebarClosed, setSidebarClosed] = useState(false);
+  const [sidebarClosed, setSidebarClosed] = useState(true);
 
-  const columnWidth = sidebarClosed ? "0.25fr 1fr" : "0.6fr 1fr";
+  const columnWidth = sidebarClosed ? "0.15fr 1fr" : "0.5fr 1fr";
 
   const handleToggleSidebar = () => {
     setSidebarClosed(!sidebarClosed);
