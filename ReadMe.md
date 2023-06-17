@@ -18,7 +18,7 @@ For more information on ChakraUI refer to the following link: https://chakra-ui.
 
 ## Front end
 
-### Front end set up
+### Set up
 
 To set up the front end do the following:
 
@@ -28,13 +28,23 @@ cd frontend
 npm install
 ```
 
-### Front end server
+### Development
 
 To start the development server do the following:
 
 ```
 cd frontend
 npm run dev
+```
+
+### Build
+
+To build the frontend application to be used by flask do the following:
+
+```
+cd frontend
+# This will build the project and will execute postbuild script
+npm run build
 ```
 
 ## Back End
