@@ -13,6 +13,7 @@ from constants import (
     INGEST_THREADS,
     PERSIST_DIRECTORY,
     SOURCE_DIRECTORY,
+    EMBEDDINGS_NAME,
 )
 
 
@@ -50,7 +51,7 @@ def load_documents(source_dir: str) -> List[Document]:
 def main():
     logging.info(f"Loading documents from {SOURCE_DIRECTORY}")
     documents = load_documents(SOURCE_DIRECTORY)
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=3000, chunk_overlap=500)
     texts = text_splitter.split_documents(documents)
     logging.info(f"Loaded {len(documents)} documents from {SOURCE_DIRECTORY}")
     logging.info(f"Split into {len(texts)} chunks of text\n")
@@ -58,7 +59,7 @@ def main():
     logging.info(f"Started embedding generation")
     # Create embeddings
     embeddings = HuggingFaceInstructEmbeddings(
-        model_name="hkunlp/instructor-large",
+        model_name=EMBEDDINGS_NAME,
         model_kwargs={"device": "mps"},
     )
     logging.info(f"Finished embedding generation\n")

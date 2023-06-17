@@ -10,5 +10,5 @@ sentence-transformers
 faiss-cpu
 huggingface_hub
 transformers
-
+openai
 #pip install -U --pre torch torchvision -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html

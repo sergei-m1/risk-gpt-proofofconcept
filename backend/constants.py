@@ -36,3 +36,11 @@ DOCUMENT_MAP = {
     ".xls": UnstructuredExcelLoader,
     ".xlxs": UnstructuredExcelLoader,
 }
+
+# Instructor Large: "hkunlp/instructor-large"
+# Instructor XL: "hkunlp/instructor-xl"
+EMBEDDINGS_NAME = "hkunlp/instructor-xl"
+
+OPENAI_LLM_NAME = "gpt-3.5-turbo"
+
+N_DOCUMENTS_SEARCH = 4
