@@ -1,5 +1,6 @@
 #API
 flask
+flask_cors
 #LLM
 langchain
 chromadb
