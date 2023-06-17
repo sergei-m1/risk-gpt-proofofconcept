@@ -1,3 +1,8 @@
+// This function is intended to be run after npm run build
+// This function automates the postbuild process so that files are ready for Flask to be used
+// It will copy static file js files from dist into backend static folder
+// It will also copy index.html from dist into backend templates folder. It will update the source tag to pick up the correct index.js
+// This function will run automatically if "npm run build" is run (refer to package.json where predefined postbuild hook is assigned)
 import fs from "fs-extra";
 import { readdirSync } from "fs";
 
@@ -7,8 +12,10 @@ const builtHtmlPath = "./dist/index.html";
 const destStaticDir = "../backend/static";
 const destTemplatesDir = "../backend/templates";
 
-async function postBuild() {
+const postBuild = async () => {
   try {
+    console.log("Starting postbuild");
+
     // Read the built JS directory
     const files = readdirSync(builtJsDir);
 
@@ -56,6 +63,6 @@ async function postBuild() {
   } catch (error) {
     console.error("An error occurred during deployment:", error);
   }
-}
+};
 
 postBuild();
