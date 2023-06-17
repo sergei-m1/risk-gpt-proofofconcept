@@ -39,8 +39,9 @@ async function deploy() {
       .split("/")
       .pop()}') }}"></script>`;
 
-    // Replace the script tag in the HTML
-    html = html.replace(/<script src="[^"]+"><\/script>/, scriptTag);
+    // Move the script tag from head to body
+    html = html.replace(/<script[^>]*><\/script>/, "");
+    html = html.replace("</body>", `${scriptTag}\n</body>`);
 
     // Write the modified HTML file
     const destHtmlPath = `${destTemplatesDir}/${builtHtmlPath
