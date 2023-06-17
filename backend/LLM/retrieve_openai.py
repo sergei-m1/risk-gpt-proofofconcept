@@ -1,9 +1,12 @@
+import os
+
 from .constants import (
     CHROMA_SETTINGS,
     PERSIST_DIRECTORY,
     EMBEDDINGS_NAME,
     OPENAI_LLM_NAME,
     N_DOCUMENTS_SEARCH,
+    DOCUMENTS,
 )
 
 from .llm_utils import (
@@ -34,5 +37,11 @@ def get_retrieval_chain():
 
 def get_response(qa_chain, query):
     llm_response = qa_chain(query)
+    response_text = llm_response["result"]
+    sources_set = {
+        DOCUMENTS.get(os.path.basename(i.metadata["source"]))
+        for i in llm_response["source_documents"]
+    }
+    sources = list(sources_set)
     # process_llm_response(llm_response)
-    return llm_response
+    return response_text, sources

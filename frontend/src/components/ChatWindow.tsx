@@ -16,6 +16,8 @@ import useChatWindow from "../hooks/useChatWindow";
 export interface Message {
   type: "sent" | "received";
   text: string;
+  sources: string[];
+  provideSources: boolean;
 }
 
 const ChatWindow = () => {
@@ -42,7 +44,13 @@ const ChatWindow = () => {
         ref={messagesRef}
       >
         {messages.map((message, index) => (
-          <ChatMessage key={index} type={message.type} text={message.text} />
+          <ChatMessage
+            key={index}
+            type={message.type}
+            text={message.text}
+            sources={message.sources}
+            provideSources={message.provideSources}
+          />
         ))}
       </CardBody>
       <Divider
