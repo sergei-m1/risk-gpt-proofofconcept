@@ -1,14 +1,33 @@
 import fs from "fs-extra";
+import { readdirSync } from "fs";
 
 // Paths to source and destination files
-const builtJsPath = "./dist/assets/index_built.js";
+const builtJsDir = "./dist/assets";
 const builtHtmlPath = "./dist/index.html";
-const destJsPath = "../backend/static/index_built.js";
-const destHtmlPath = "../backend/templates/index.html";
+const destStaticDir = "../backend/static";
+const destTemplatesDir = "../backend/templates";
 
 async function deploy() {
   try {
-    // Copy built JS file
+    // Read the built JS directory
+    const files = readdirSync(builtJsDir);
+
+    // Find the JavaScript file with the dynamic filename
+    const jsFile = files.find(
+      (file) => file.startsWith("index-") && file.endsWith(".js")
+    );
+
+    if (!jsFile) {
+      throw new Error("No built JavaScript file found.");
+    } else {
+      console.log("Found built JavaScript file:", jsFile);
+    }
+
+    // Paths to the dynamic JavaScript file and destination files
+    const builtJsPath = `${builtJsDir}/${jsFile}`;
+    const destJsPath = `${destStaticDir}/${jsFile}`;
+
+    // Copy the built JS file to the static folder
     await fs.copy(builtJsPath, destJsPath);
     console.log("Copied built JS file to the static folder.");
 
@@ -21,9 +40,12 @@ async function deploy() {
       .pop()}') }}"></script>`;
 
     // Replace the script tag in the HTML
-    html = html.replace('<script src="index_built.js"></script>', scriptTag);
+    html = html.replace(/<script src="[^"]+"><\/script>/, scriptTag);
 
     // Write the modified HTML file
+    const destHtmlPath = `${destTemplatesDir}/${builtHtmlPath
+      .split("/")
+      .pop()}`;
     await fs.writeFile(destHtmlPath, html);
     console.log(
       "Copied built HTML file to the templates folder and updated the script tag."
