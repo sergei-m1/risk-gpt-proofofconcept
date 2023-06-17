@@ -1,14 +1,19 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 import time
 import logging
 
 from LLM.retrieve_openai import get_retrieval_chain, get_response
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 CORS(app)
 
 qa_chain = get_retrieval_chain()
+
+
+@app.route("/")
+def index():
+    return render_template("index.html")
 
 
 @app.route("/api", methods=["GET", "POST"])
@@ -22,8 +27,6 @@ def handle_api():
         logging.info(data)
 
         response_text, sources = get_response(qa_chain=qa_chain, query=data["text"])
-
-        # text_to_return = "I have processed the following POST request: " + data["text"]
 
         # Process the data and create the resource
         return (
