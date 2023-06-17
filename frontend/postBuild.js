@@ -7,7 +7,7 @@ const builtHtmlPath = "./dist/index.html";
 const destStaticDir = "../backend/static";
 const destTemplatesDir = "../backend/templates";
 
-async function deploy() {
+async function postBuild() {
   try {
     // Read the built JS directory
     const files = readdirSync(builtJsDir);
@@ -58,4 +58,4 @@ async function deploy() {
   }
 }
 
-deploy();
+postBuild();
