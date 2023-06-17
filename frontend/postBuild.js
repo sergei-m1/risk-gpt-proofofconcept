@@ -12,7 +12,7 @@ const builtHtmlPath = "./dist/index.html";
 const destStaticDir = "../backend/static";
 const destTemplatesDir = "../backend/templates";
 
-const postBuild = async () => {
+const postbuild = async () => {
   try {
     console.log("Starting postbuild");
 
@@ -65,4 +65,4 @@ const postBuild = async () => {
   }
 };
 
-postBuild();
+postbuild();
