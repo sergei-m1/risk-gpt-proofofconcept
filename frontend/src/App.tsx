@@ -1,34 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import {
+  Box,
+  Card,
+  CardBody,
+  Grid,
+  GridItem,
+  Show,
+  Text,
+} from "@chakra-ui/react";
+import NavBar from "./components/NavBar";
+import ChatWindow from "./components/ChatWindow";
+import SideBar from "./components/SideBar";
+import { useState } from "react";
+import { HiChevronDoubleLeft } from "react-icons/hi";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [sidebarClosed, setSidebarClosed] = useState(true);
+
+  const columnWidth = sidebarClosed ? "0.15fr 1fr" : "0.5fr 1fr";
+
+  const handleToggleSidebar = () => {
+    setSidebarClosed(!sidebarClosed);
+  };
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <Grid
+      templateAreas={{
+        base: `"nav" "main"`,
+        lg: `"nav nav" "aside main"`,
+      }}
+      templateRows={{
+        base: "auto 1fr",
+        lg: "auto 1fr",
+      }}
+      gridTemplateColumns={{
+        base: "1fr",
+        lg: columnWidth,
+      }}
+      minHeight="100vh"
+      maxHeight="100vh"
+    >
+      <GridItem area="nav">
+        <NavBar />
+      </GridItem>
+      <Show above="lg">
+        <GridItem area="aside" bg="gray.200">
+          <SideBar
+            closed={sidebarClosed}
+            onToggleSidebar={handleToggleSidebar}
+          />
+        </GridItem>
+      </Show>
+      <GridItem
+        area="main"
+        overflowY="auto"
+        bg="gray.50"
+        padding={6}
+        width={sidebarClosed ? "100%" : "auto"}
+      >
+        <Box height="100%" width="100%" display="flex" flexDirection="column">
+          <Box flex="1" overflowY="auto">
+            <ChatWindow />
+          </Box>
+        </Box>
+      </GridItem>
+    </Grid>
+  );
 }
 
-export default App
+export default App;
